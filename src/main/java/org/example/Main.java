@@ -34,7 +34,7 @@ public class Main implements CommandLineRunner {
         log.info("STARTING JOB");
         Job job = (Job) applicationContext.getBean(Constants.JOB_NAME);
 
-        JobParameters parameters = new JobParametersBuilder().addString(Constants.KEY_JOB, "test6").toJobParameters();
+        JobParameters parameters = new JobParametersBuilder().addString(Constants.KEY_JOB, "test8").toJobParameters();
         try {
             var jobExecution = jobLauncher.run(job, parameters);
             var batchStatus = jobExecution.getStatus();

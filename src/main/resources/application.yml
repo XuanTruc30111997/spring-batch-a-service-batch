@@ -21,3 +21,4 @@ spring:
     enabled: false
     user: scdf-share-db
     password: scdf-share-db
+    schema: testbatch

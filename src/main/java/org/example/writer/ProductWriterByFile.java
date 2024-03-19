@@ -2,6 +2,7 @@ package org.example.writer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.Product;
+import org.example.properties.LiquibaseProperties;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class ProductWriterByFile  implements ItemWriter<Product> {
     @Autowired
     DataSource dataSource;
+    @Autowired
+    private LiquibaseProperties liquibaseProperties;
 
     @Override
     public void write(Chunk<? extends Product> product) throws Exception {
@@ -24,7 +27,7 @@ public class ProductWriterByFile  implements ItemWriter<Product> {
 
         SimpleJdbcInsert simpleJdbcInsert =
                 new SimpleJdbcInsert(dataSource).withTableName("product");
-
+        simpleJdbcInsert.setSchemaName(liquibaseProperties.getSchema());
 
         List<Product> productList = new ArrayList<>(product.getItems());
 

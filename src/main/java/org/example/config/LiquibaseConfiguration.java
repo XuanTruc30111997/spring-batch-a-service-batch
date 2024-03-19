@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,16 +22,12 @@ public class LiquibaseConfiguration {
     @Autowired
     private DataSourceProperties dataSourceProperties;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Bean
     public SpringLiquibase liquibase() {
         log.info("Start init liquibase");
-
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(dataSourceProperties.getDriverName());
-        dataSource.setUrl(dataSourceProperties.getUrl());
-        dataSource.setUsername(liquibaseProperties.getUser());
-        dataSource.setPassword(liquibaseProperties.getPassword());
-        dataSource.setSchema(dataSourceProperties.getSchema());
 
         SpringLiquibase liquibase = getSpringLiquibase(dataSource);
 
@@ -38,17 +35,14 @@ public class LiquibaseConfiguration {
         return liquibase;
     }
 
-    private SpringLiquibase getSpringLiquibase(DriverManagerDataSource dataSource) {
+    private SpringLiquibase getSpringLiquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog("classpath:/changelog/db.changelog.yaml");
         liquibase.setDataSource(dataSource);
         liquibase.setLiquibaseSchema(liquibaseProperties.getSchema());
 
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("usrName", dataSourceProperties.getUserName());
-        parameters.put("userPassword", dataSourceProperties.getPassword());
-        parameters.put("schema", dataSourceProperties.getSchema());
-        parameters.put("roleName", liquibaseProperties.getRoleName());
+        parameters.put("schema", liquibaseProperties.getSchema());
 
         liquibase.setChangeLogParameters(parameters);
         return liquibase;
