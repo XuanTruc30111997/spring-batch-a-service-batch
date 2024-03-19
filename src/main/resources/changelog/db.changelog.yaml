@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: TrucNguyen
+      comment: "Create table category"
+      changes:
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS product (id varchar(255) primary key, name varchar(255), price decimal)

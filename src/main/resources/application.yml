@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: scdf-share-db
+    password: scdf-share-db
+    driverClassName: org.postgresql.Driver
+    schema: scdf-share
+  jba:
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    generate-ddl: false
+  batch:
+    job:
+      enabled: false # Avoid to run Job from starting as Bean
+    jdbc:
+      initialize-schema: always
+#      initialize-schema: never
+  liquibase:
+    enabled: false
+    user: scdf-share-db
+    password: scdf-share-db
