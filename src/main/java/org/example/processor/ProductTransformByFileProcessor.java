@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.ProductInput;
 import org.example.model.Product;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Slf4j
+@Component
 public class ProductTransformByFileProcessor implements ItemProcessor<ProductInput, Product>  {
     @Override
     public Product process(ProductInput productInput) throws Exception {

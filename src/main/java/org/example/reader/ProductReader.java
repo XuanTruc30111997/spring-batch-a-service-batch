@@ -3,11 +3,13 @@ package org.example.reader;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.ProductInput;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Component
 public class ProductReader implements ItemReader<List<ProductInput>> {
     private boolean isRun = false;
 

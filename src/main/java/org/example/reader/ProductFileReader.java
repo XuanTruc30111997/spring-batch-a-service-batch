@@ -5,8 +5,10 @@ import org.example.dto.ProductInput;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class ProductFileReader {
     public FlatFileItemReader<ProductInput> readByFile() {
         log.info("Start reading by File");
